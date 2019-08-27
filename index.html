@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="fontawesome-free-5.9.0-web/css/all.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="card text-white bg-primary col-6 mx-auto my-5">
+        <img class="card-img-top" src="holder.js/100px180/" alt="">
+        <div class="card-body">
+          <h4 class="card-title">Rating App</h4>
+          <hr>
+          <div class="row">
+            <div class="col-5 row">
+              <div class="co-3" id="star1">
+                <!-- <input type="hidden" value="1" name="" id="hi"> -->
+                <i class="fa fa-star" for="h1" aria-hidden="true"></i>
+              </div>
+
+              <div class="co-3" id="star2">
+                <i class="fa fa-star" aria-hidden="true"></i>
+              </div>
+
+              <div class="co-3" id="star3">
+                <i class="fa fa-star" aria-hidden="true"></i>
+              </div>
+
+              <div class="co-3" id="star4">
+                <i class="fa fa-star" aria-hidden="true"></i>
+              </div>
+
+              <div class="co-3" id="star5">
+                <i class="fa fa-star" aria-hidden="true"></i>
+              </div>
+            </div>
+
+            <input type="text" class="form-control mt-2" placeholder="email
+              address" id="email">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12" id="ratingOutput">
+
+
+      </div>
+      <ul class="pagination">
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+      </ul>
+
+
+
+    </div>
+    <script>
+    let star1 = document.querySelector('#star1');
+    let star2 = document.querySelector('#star2');
+    let star3 = document.querySelector('#star3');
+    let star4 = document.querySelector('#star4');
+    let star5 = document.querySelector('#star5');
+    let email = document.querySelector('#email');
+    let ratingOutput = document.querySelector('#ratingOutput');
+
+    let xhr = new XMLHttpRequest();
+    star1.addEventListener('click', function () {
+      //  event.preventDefault(event);
+      // console.log(star1.value);
+      // console.log(email.log);
+     
+
+      
+      if(email.value==""){
+        alert("Please in der you email first");
+        return false;
+      }else{
+        star1.style.color = "yellow";
+      star2.style.color = "white";
+      star3.style.color = "white";
+      star4.style.color = "white";
+      star5.style.color = "white";
+
+        xhr.open("GET", "insert.php?rate=1&email="+email, true);
+// console.log();
+function reload(){
+  location('index.html');
+}
+xhr.onreadystatechange = function () {
+
+    console.log(this.responseText);
+
+}
+xhr.send();
+reload();
+      }
+     
+      
+    //  alert("rate one star");
+
+    });
+
+    
+    star2.addEventListener('click', function () {
+      //  event.preventDefault(event);
+      // console.log(star1.value);
+
+      star1.style.color = "yellow";
+      star2.style.color = "yellow";
+      star3.style.color = "white";
+      star4.style.color = "white";
+      star5.style.color = "white";
+
+      xhr.open("GET", "insert.php?rate=2", true);
+// console.log();
+xhr.onload = function () {
+
+    console.log(this.responseText);
+
+}
+xhr.send();
+reload()
+    });
+    star3.addEventListener('click', function () {
+      //  event.preventDefault(event);
+      // console.log(star1.value);
+
+      star1.style.color = "yellow";
+      star2.style.color = "yellow";
+      star3.style.color = "yellow";
+      star4.style.color = "white";
+      star5.style.color = "white";
+
+      
+      xhr.open("GET", "insert.php?rate=3", true);
+// console.log();
+xhr.onload = function () {
+
+    console.log(this.responseText);
+
+}
+xhr.send();
+reload()
+    });
+    star4.addEventListener('click', function () {
+      //  event.preventDefault(event);
+      // console.log(star1.value);
+
+      star1.style.color = "yellow";
+      star2.style.color = "yellow";
+      star3.style.color = "yellow";
+      star4.style.color = "yellow";
+      star5.style.color = "white";
+      
+      xhr.open("GET", "insert.php?rate=4", true);
+// console.log();
+xhr.onload = function () {
+
+    console.log(this.responseText);
+
+}
+xhr.send();
+reload()
+    });
+    star5.addEventListener('click', function () {
+      //  event.preventDefault(event);
+      // console.log(star1.value);
+
+      star1.style.color = "yellow";
+      star2.style.color = "yellow";
+      star3.style.color = "yellow";
+      star4.style.color = "yellow";
+      star5.style.color = "yellow";
+      
+      xhr.open("GET", "insert.php?rate=5", true);
+// console.log();
+xhr.onload = function () {
+
+    console.log(this.responseText);
+
+}
+xhr.send();
+reload()
+    });
+
+// let rateValue=0.2;
+// if(rateValue==0.2){
+//   // outpput=""
+// }
+
+setInterval(() => {
+  
+  xhr.open("GET", "getRatings.php", true);
+// console.log();
+xhr.onreadystatechange = function () {
+
+  let ratings=JSON.parse(this.responseText);
+  // console.log(ratings);
+  ratingOutput.innerHTML="";
+  
+  ratings.forEach(ratings => {
+   let time=ratings['created_at'];
+     ratings=ratings['rated'];
+   
+     
+       if(ratings==1){
+       ratingOutput.innerHTML+=`  <div class="col-6 bg-secondary mx-auto text-white row py-2 my-4">
+        <div class="profile-image col-3">
+          <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+        </div>
+        <div class="stars text-right col-7" >
+          <i class="fa fa-star text-warning" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+      <div class="col-12">`+
+          `<small>`+time+`</small>
+        </div>
+      </div>
+           
+       `;}
+
+       if(ratings==2){
+       ratingOutput.innerHTML+=`  <div class="col-6 bg-secondary mx-auto text-white row py-2 my-4">
+        <div class="profile-image col-3">
+          <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+        </div>
+        <div class="stars text-right col-7" >
+          <i class="fa fa-star text-warning" aria-hidden="true"></i>
+          <i class="fa fa-star text-warning" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="col-12">`+
+          `<small>`+time+`</small>
+        </div>
+      </div>
+           
+       `;}
+
+       if(ratings==3){
+       ratingOutput.innerHTML+=`  <div class="col-6 bg-secondary mx-auto text-white row py-2 my-4">
+        <div class="profile-image col-3">
+          <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+        </div>
+        <div class="stars text-right col-7" >
+          <i class="fa fa-star text-warning" aria-hidden="true"></i>
+          <i class="fa fa-star text-warning" aria-hidden="true"></i>
+          <i class="fa fa-star text-warning" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="col-12">`+
+          `<small>`+time+`</small>
+        </div>
+      </div>
+           
+       `;}
+
+       if(ratings==4){
+       ratingOutput.innerHTML+=`  <div class="col-6 bg-secondary mx-auto text-white row py-2 my-4">
+        <div class="profile-image col-3">
+          <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+        </div>
+        <div class="stars text-right col-7" >
+          <i class="fa fa-star text-warning" aria-hidden="true"></i>
+          <i class="fa fa-star text-warning" aria-hidden="true"></i>
+          <i class="fa fa-star text-warning" aria-hidden="true"></i>
+          <i class="fa fa-star text-warning" aria-hidden="true"></i>
+          <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="col-12">`+
+          `<small>`+time+`</small>
+        </div>
+      </div>
+           
+       `;}
+
+       if(ratings==5){
+       ratingOutput.innerHTML+=`  <div class="col-6 bg-secondary mx-auto text-white row py-2 my-4">
+        <div class="profile-image col-3">
+          <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+        </div>
+        <div class="stars text-right col-7" >
+          <i class="fa fa-star text-warning" aria-hidden="true"></i>
+          <i class="fa fa-star text-warning" aria-hidden="true"></i>
+          <i class="fa fa-star text-warning" aria-hidden="true"></i>
+          <i class="fa fa-star text-warning" aria-hidden="true"></i>
+          <i class="fa fa-star text-warning" aria-hidden="true"></i>
+        </div>
+        <div class="col-12">`+
+          `<small>`+time+`</small>
+        </div>
+      </div>
+           
+       `;}
+
+
+       
+  });
+
+}
+xhr.send();
+
+},1000);
+
+    
+
+  </script>
+  </body>
+  <script src="fontawesome-free-5.9.0-web/js/all.js"></script>
+
+</html>
